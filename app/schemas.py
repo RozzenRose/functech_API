@@ -10,3 +10,7 @@ class CreateUser(BaseModel):
 class CreateOrder(BaseModel):
     items: dict
     total_price:float
+
+class UpdateOrder(BaseModel):
+    order_id: str
+    new_status: str

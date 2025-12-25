@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.database.db_functions.db_order import create_order_in_db, get_order_in_db, patch_order_in_db, \
     get_orders_by_user_id_in_db
 from app.functions.auth_functions import get_current_user
-from app.schemas import CreateOrder
+from app.schemas import CreateOrder, UpdateOrder
 import uuid
 from worker.celery_app import celery_app
 from worker.tasks import process_order
@@ -37,10 +37,10 @@ async def get_order(db: Annotated[AsyncSession, Depends(get_db)],
     return answer
 
 
-@router.patch('/{order_id}')
+@router.patch('/update')
 async def patch_order(db: Annotated[AsyncSession, Depends(get_db)],
-                     order_id: str, new_status: str):
-    await patch_order_in_db(db, order_id, new_status)
+                     order: UpdateOrder):
+    await patch_order_in_db(db, order.order_id, order.new_status)
     return {'status_code':status.HTTP_200_OK,
             'transaction': 'Order patched successfully'}
 
