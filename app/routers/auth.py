@@ -9,10 +9,8 @@ from app.functions.auth_functions import (create_access_token, get_current_user,
                                           create_refresh_token, verify_refresh_token)
 from datetime import timedelta
 from app.database.db_functions import (add_refresh_token_in_db,
-                                       disactivate_user_in_db, create_user_in_db, get_user,
+                                       create_user_in_db, get_user,
                                         update_refresh_token_in_db)
-from app.redis_inf import Redis
-
 
 router = APIRouter(prefix='/auth', tags=['auth'])
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='/auth/token')

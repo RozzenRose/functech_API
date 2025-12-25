@@ -11,6 +11,11 @@ class Settings(BaseSettings):
     POSTGRES_PASSWORD: str
     POSTGRES_DB: str
 
+    RABBITMQ_HOST: str
+    RABBITMQ_PORT: int
+    RABBITMQ_USER: str
+    RABBITMQ_PASSWORD: str
+
     REDIS_HOST: str
     REDIS_PORT: int
     REDIS_DB: int
@@ -29,10 +34,26 @@ class Settings(BaseSettings):
 
 
     @property
+    def database_url_sync(self) -> str:
+        return (
+            f"postgresql+psycopg2://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}"
+            f"@{self.POSTGRES_HOST}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
+        )
+
+
+    @property
     def redis_url(self) -> str:
         return (
             f'redis://:{self.REDIS_PASSWORD}@{self.REDIS_HOST}:'
             f'{self.REDIS_PORT}/{self.REDIS_DB}'
+        )
+
+
+    @property
+    def rabbitmq_url(self) -> str:
+        return (
+            f'amqp://{self.RABBITMQ_USER}:{self.RABBITMQ_PASSWORD}@'
+            f'{self.RABBITMQ_HOST}:{self.RABBITMQ_PORT}'
         )
 
 

@@ -7,7 +7,6 @@ class CreateUser(BaseModel):
     password: str
 
 
-class CreateProduct(BaseModel):
-    name: str
-    description: str
-    price: int
+class CreateOrder(BaseModel):
+    items: dict
+    total_price:float

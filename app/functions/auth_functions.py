@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta, timezone
 import jwt
-from app.config import settings
+from config import settings
 from fastapi import Depends, HTTPException, status
 from typing import Annotated
 from fastapi.security import OAuth2PasswordBearer
